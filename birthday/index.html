@@ -18,6 +18,71 @@
             }
         </script>
 	    <style type="text/css">
+            /* body {
+            background-color: #f9f0f4;
+            overflow: hidden;
+            font-family: 'Cursive', sans-serif;
+            } */
+
+            /* #letter {
+                position: absolute;
+                top: 20%;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #fff url('lined-paper.jpg') center center/cover;
+                width: 60%;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                z-index: 10;
+            }  */
+
+            #buttons {
+                text-align: center;
+                margin-top: 20px;
+                font-size: 1.5rem;
+                z-index: 10; /* Added */
+                position: relative; /* Ensures proper stacking context */
+            }
+
+            #question {
+                text-align: center;
+                font-size: 1.5rem;
+                display: none;
+                margin-top: 20px;
+                position: relative; /* Relative to #wrap */
+            }
+
+
+            canvas {
+                z-index: 1; /* Ensures canvas stays in the background */
+            }
+
+
+            #buttons {
+                text-align: center;
+                margin-top: 10px;
+                display: none;
+            }
+
+            #yes {
+                background-color: green;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            #no {
+                background-color: red;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                position: absolute;
+            }
         </style>
 </head>
     <body>
@@ -37,24 +102,115 @@
                       <span class="say">THAT ONE CAN💕</span><br>
                       <span class="say">From Your Wifuu! </span><br>
                       <span class="say"><span class="space"></span></span> </font>
-                          <br />
-                          <br />
+                          <!-- <br />
+                          <br /> -->
                       </p>
                     </div>
-                  </div>
+                </div>
 
-                  <div id = "message-box"></div>
+                <div id = "message-box"></div>
                 <div id="clock-box">
                     <span class="STYLE1"></span><font color="#33CC00"></font>
-<span class="STYLE1"></span>
-                  <div id="clock"></div>
-              </div>
+                    <span class="STYLE1"></span>
+                    <div id="clock"></div>
+                </div>
                 <canvas id="canvas" width="1100" height="680"></canvas>
+            </div>
+
+            <div id="question">
+                Do you love me too?
+            </div>
+            
+            <div id="buttons">
+                <button id="yes">Yes</button>
+                <button id="no">No</button>
             </div>
             
         </div>
+
+        <!-- <div id="letter">
+            <p id="message"></p>
+        </div> -->
+    
+        <div id="question">
+            Do you love me too?
+        </div>
+    
+        <div id="buttons">
+            <button id="yes">Yes</button>
+            <button id="no">No</button>
+        </div>
+
+
     
     <script>
+        // Typing effect for the letter
+        // const messageText = "Happy Birthday to the love of my life! I hope this day is as amazing as you are. I am so lucky to have you. Love you to the moon and back!";
+        // const messageElement = document.getElementById('message');
+        // let index = 0;
+
+        // function typeMessage() {
+        //     if (index < messageText.length) {
+        //         messageElement.textContent += messageText.charAt(index);
+        //         index++;
+        //         setTimeout(typeMessage, 50);
+        //     } else {
+        //         // Explicitly set display properties
+        //         const question = document.getElementById('question');
+        //         const buttons = document.getElementById('buttons');
+        //         question.style.display = 'block';
+        //         buttons.style.display = 'block';
+        //     }
+        // }
+
+        // typeMessage();
+
+        // Function to show question div after wrap animations
+        function showQuestion() {
+            const wrap = document.getElementById('wrap');
+            const question = document.getElementById('question');
+            const buttons = document.getElementById('buttons');
+
+            // Wait for animations inside wrap to finish (adjust delay if needed)
+            setTimeout(() => {
+                question.style.display = 'block';
+                buttons.style.display = 'block';
+                
+                // Position the question right below wrap
+                question.style.top = `${wrap.offsetTop + wrap.offsetHeight}px`;
+            }, 2000); // Adjust delay based on wrap animation duration
+        }
+
+        // Call the function after `runAsync` finishes its animations
+        runAsync().start().then(showQuestion);
+
+
+        // "No" button behavior
+        const noButton = document.getElementById('no');
+        noButton.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 100);
+            noButton.style.left = `${x}px`;
+            noButton.style.top = `${y}px`;
+        });
+
+        // "Yes" button behavior
+        const yesButton = document.getElementById('yes');
+        yesButton.addEventListener('click', () => {
+            const popup = document.createElement('div');
+            popup.textContent = "Yes I know you love me. And you better do that for the rest of your life because I'm not letting you go! Happy Birthday again love! 💋";
+            popup.style.position = 'fixed';
+            popup.style.top = '50%';
+            popup.style.left = '50%';
+            popup.style.transform = 'translate(-50%, -50%)';
+            popup.style.backgroundColor = 'pink';
+            popup.style.color = 'black';
+            popup.style.padding = '20px';
+            popup.style.borderRadius = '10px';
+            popup.style.textAlign = 'center';
+            popup.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+            document.body.appendChild(popup);
+        });
     </script>
 
     <script>
@@ -188,8 +344,8 @@
 
         var textAnimate = eval(Jscex.compile("async", function () {
 		    var together = new Date();
-		    together.setFullYear(2002, 25, 12); 			//时间年月日
-		    together.setHours(20);						//小时	
+		    together.setFullYear(2001, 29, 12); 			//时间年月日
+		    together.setHours(0);						//小时	
 		    together.setMinutes(0);					//分钟
 		    together.setSeconds(0);					//秒前一位
 		    together.setMilliseconds(2);				//秒第二位
